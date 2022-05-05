@@ -10,7 +10,7 @@ const Admin = observer(() => {
     const [bookVisible,setBookVisible] = useState(false)
     const [returnVisible,setReturnVisible] = useState(false)
     return (
-        <Container className="d-flex flex-column">
+        <Container className="d-flex flex-column mt-4">
             <Button variant={"outline-dark"} className="mt-2" onClick={()=> setGenreVisible(true)}>
                 Додати жанр
             </Button>

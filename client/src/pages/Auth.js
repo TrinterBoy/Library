@@ -22,7 +22,7 @@ const Auth = observer(() => {
         }else{
             data = await registration(name,email,password)
         }
-        user.setUser(user)
+        user.setUser(data)
         user.setIsAuth(true)
         navigate('/')
         }catch (e){

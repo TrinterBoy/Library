@@ -39,8 +39,8 @@ Basket.belongsTo(User)
 Basket.hasMany(Basket_Book)
 Basket_Book.belongsTo(Basket)
 
-Basket_Book.hasOne(Book)
-Book.belongsTo(Basket_Book)
+Book.hasOne(Basket_Book)
+Basket_Book.belongsTo(Book)
 
 Genre.hasOne(Book)
 Book.belongsTo(Genre)

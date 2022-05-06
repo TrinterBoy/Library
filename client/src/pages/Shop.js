@@ -7,9 +7,15 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {fetchBook, fetchGenre} from "../http/bookAPI";
 import Pages from "../components/Pages";
+import {useNavigate} from "react-router-dom";
 
 const Shop = observer(() => {
-    const {book} = useContext(Context)
+    const navigate= useNavigate()
+    const {book, user} = useContext(Context)
+
+    const Nav = () =>{
+        navigate('/admin')
+    }
 
     useEffect(()=>{
         fetchGenre().then(data=>book.setGenres(data))
@@ -40,6 +46,14 @@ const Shop = observer(() => {
                     <div >
                     <Button style={{display: "block", margin:"0 auto"}} className="mt-3" onClick={Search}>Знайти</Button>
                     </div>
+                    {user.user.role=="ADMIN"
+                        ?
+                    <div>
+                        <Button style={{backgroundColor:"white",display: "block", margin:"0 auto"}} className="mt-3 btn-outline-dark" onClick={Nav}>Адмін панель</Button>
+                    </div>
+                        :
+                        <div/>
+                    }
                 </Col>
                 <Col md={9}>
                     <NameBar/>

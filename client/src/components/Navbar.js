@@ -4,6 +4,7 @@ import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {NavLink, useNavigate} from "react-router-dom";
 import Shop from "../pages/Shop";
 import {observer} from "mobx-react-lite";
+import {BsCart3} from "react-icons/bs";
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
@@ -19,8 +20,8 @@ const NavBar = observer(() => {
             <Container>
                 <NavLink style={{color:'white',textDecoration:'none'}} to="/" element={<Shop/>}>Бібліотека One Touch</NavLink>
                 {user.isAuth ?
-                    <Nav className="ml-auto" style={{color:'white'}}>
-                        <Button variant={"outline-light"} onClick={()=>navigate('/admin')}>Адмін панель</Button>
+                    <Nav style={{color:'white'}}>
+                        <Button variant={"outline-light"} onClick={()=>navigate('/basket')}>{<BsCart3/>}</Button>
                         <Button variant={"outline-light"} style={{marginLeft: 10}} onClick={()=>logOut()}>Вийти</Button>
                     </Nav>
                     :

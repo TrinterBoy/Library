@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Button, Card, Container, Form, Row} from "react-bootstrap";
+import {Button, Card, Container, Form, InputGroup, Row} from "react-bootstrap";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {login, registration} from "../http/userAPI";
 import {Context} from "../index";
@@ -11,20 +11,24 @@ const Auth = observer(() => {
     const location = useLocation()
     const isLogin = location.pathname === "/login"
     const [name,setName] =useState('')
+    const [surname,setSurname] =useState('')
     const [email,setEmail] =useState('')
     const [password,setPassword] =useState('')
+    const [phone,setPhone] =useState('')
 
     const click = async ()=>{
         try{
         let data;
         if(isLogin){
             data = await login(email,password)
+            user.setUser(data)
+            user.setIsAuth(true)
+            navigate('/')
         }else{
-            data = await registration(name,email,password)
+            data= await registration(name,surname,email,password,phone)
+            alert("Реєстрація пройдена успішно")
+            navigate('/login')
         }
-        user.setUser(data)
-        user.setIsAuth(true)
-        navigate('/')
         }catch (e){
             alert(e.response.data.message)
         }
@@ -43,6 +47,29 @@ const Auth = observer(() => {
                     value={name}
                     onChange={e=>setName(e.target.value)}
                 />
+                    :
+                    <div></div>
+                }
+                {!isLogin ?
+                    <Form.Control
+                        className="mt-3"
+                        placeholder="Введіть фамілію..."
+                        value={surname}
+                        onChange={e=>setSurname(e.target.value)}
+                    />
+                    :
+                    <div></div>
+                }
+                {!isLogin ?
+                    <InputGroup>
+                        <InputGroup.Text className="mt-3">+38</InputGroup.Text>
+                    <Form.Control
+                        className="mt-3"
+                        placeholder="(XXX)-XXX-XX-XX"
+                        value={phone}
+                        onChange={e=>setPhone(e.target.value)}
+                    />
+                    </InputGroup>
                     :
                     <div></div>
                 }

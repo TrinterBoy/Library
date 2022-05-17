@@ -9,6 +9,11 @@ export const fetchGenre =async () => {
     return data
 }
 
+export const fetchOneGenre =async (id) => {
+    const {data} = await $host.get('api/genre/'+id)
+    return data
+}
+
 export const createBook = async (book) => {
     const {data} = await $authHost.post('api/book',book)
     return data
@@ -20,7 +25,23 @@ export const fetchBook =async (name,author,genreId, page, limit = 5) => {
     })
     return data
 }
+export const fetchBookById =async (id) => {
+    const {data} = await $host.get('api/book/byId',{params:{id}})
+    return data
+}
 export const fetchOneBook =async (id) => {
     const {data} = await $host.get('api/book/'+id)
+    return data
+}
+export const postBookId = async (id) => {
+    const {data} = await $authHost.post('api/book/available',{id})
+    return data
+}
+export const postBookIdTrue = async (id) => {
+    const {data} = await $authHost.post('api/book/notAvailable',{id})
+    return data
+}
+export const getUnavailableBook = async () => {
+    const {data} = await $authHost.get('api/book/?isA=false')
     return data
 }

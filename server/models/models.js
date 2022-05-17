@@ -4,8 +4,10 @@ const {DataTypes} = require('sequelize')
 const User = sequelize.define('user', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name:{type: DataTypes.STRING},
+    surname:{type: DataTypes.STRING},
     email:{type: DataTypes.STRING, unique: true},
     password:{type: DataTypes.STRING},
+    phone:{type: DataTypes.INTEGER, unique: true},
     role: {type: DataTypes.STRING, defaultValue: "USER"},
 })
 
@@ -33,6 +35,10 @@ const Genre = sequelize.define('genre',{
     name:{type: DataTypes.STRING, allowNull:false}
 })
 
+const UsersBook = sequelize.define('usersBook',{
+    id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+})
+
 User.hasOne(Basket)
 Basket.belongsTo(User)
 
@@ -45,6 +51,12 @@ Basket_Book.belongsTo(Book)
 Genre.hasOne(Book)
 Book.belongsTo(Genre)
 
+User.hasOne(UsersBook)
+UsersBook.belongsTo(User)
+
+Book.hasOne(UsersBook)
+UsersBook.belongsTo(Book)
+
 module.exports = {
-    User,Basket,Basket_Book,Book,Genre
+    User,Basket,Basket_Book,Book,Genre,UsersBook
 }

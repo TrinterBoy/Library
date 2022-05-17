@@ -1,15 +1,32 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Col, Container, Dropdown, Image} from "react-bootstrap";
-import {useParams} from "react-router-dom";
-import {fetchOneBook} from "../http/bookAPI";
+import {useNavigate, useParams} from "react-router-dom";
+import {fetchOneBook, postBookId, postBookIdTrue} from "../http/bookAPI";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
+import {createBasket, getBasketId} from "../http/basketAPI";
 
 
 const Book = observer(() => {
     const [bookT, setBook]=useState({})
-    const {book} = useContext(Context)
+    const {book,user} = useContext(Context)
     const {id} = useParams()
+    const navigate =useNavigate()
+
+
+    const AddBasket=()=>{
+        if(bookT.isA) {
+            getBasketId(user.user.id).then(data => {
+                createBasket(data.id, bookT.id).then(dataB => {
+                    postBookId(bookT.id).then(navigate('/'))
+                })
+            })
+        }
+        else{
+            alert("Книги немає в наявності")
+        }
+    }
+
     useEffect(()=>{
         fetchOneBook(id).then(data=>setBook(data))
     },[])
@@ -36,7 +53,7 @@ const Book = observer(() => {
                     <div className="text-muted">{bookT.desc}</div>
                 </div>
             </div>
-            <Button style={{width:150, marginLeft:75, marginTop:20}}>Додати у кошик</Button>
+            <Button style={{width:150, marginLeft:75, marginTop:20}} onClick={AddBasket} >Додати у кошик</Button>
         </Container>
 
     );

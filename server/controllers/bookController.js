@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Book} = require('../models/models')
+const {Book, Basket} = require('../models/models')
 const ApiError = require('../Errors/ApiError')
 const {Op} = require("sequelize");
 
@@ -92,6 +92,34 @@ class BookController {
         const book = await Book.findOne({where:{id}})
         return res.json(book)
     }
+    async getAllById(req,res){
+        const {id} = req.query
+        const book = await Book.findAll({where:{id}})
+        return res.json(book)
+    }
+    async postOneFalse(req,res){
+        const {id} = req.body
+        const book = await Book.update({
+            isA: false
+        }, {
+            where:{id}
+        })
+        return res.json(book)
+    }
+    async postOneTrue(req,res){
+        const {id} = req.body
+        const book = await Book.update({
+            isA: true
+        }, {
+            where:{id}
+        })
+        return res.json(book)
+    }
+    async getAllUnavailable(req,res){
+        const book = await Book.findAll({where:{isA:false}})
+        return res.json(book)
+    }
+
 }
 
 module.exports = new BookController()

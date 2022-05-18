@@ -59,37 +59,37 @@ const UserItem = observer(({user}) => {
                         <div style={{fontWeight:"bold"}}>{user.name} {user.surname}</div>
                     </div>
                     <div className="d-flex">
-                        <div>0{user.phone}</div>
+                        <div>•Телефон: 0{user.phone}</div>
                     </div>
                     <div className="d-flex">
-                        <div>{user.email}</div>
+                        <div>•Пошта: {user.email}</div>
                     </div>
                     <div className="d-flex">
-                        <div>Абонемент: {(user.subscription==true)?"Наявний":"Відсутній"}</div>
+                        <div>•Абонемент: {(user.subscription==true)?"Наявний":"Відсутній"}</div>
                     </div>
                     {(user.subscription==true)?
-                        <div>Дата видачі абонементу:{user.updatedAt}</div>
+                        <div>•Дата видачі абонементу:<br/> {user.updatedAt}</div>
                         :
                         <div/>
                     }
                     <div className="d-flex">
-                        <div>Роль: {user.role}</div>
+                        <div>•Роль: {user.role}</div>
                     </div>
                     <hr style={{marginTop:5,marginBottom:5}}></hr>
                     <div>
-                        <Button style={{marginBottom:5,marginTop:5}} disabled={disable} variant="outline-danger" onClick={Click}>Видалити</Button>
+                        <Button style={{marginBottom:5,marginTop:5}} disabled={disable} variant="danger" onClick={Click}>Видалити користувача</Button>
                     </div>
                     <div>
-                        <Button style={{marginBottom:5}} disabled={disable2} variant="outline-info" onClick={Click2}>Зробити адміном</Button>
+                        <Button style={{marginBottom:5}} disabled={disable2} variant="info" onClick={Click2}>Зробити адміном</Button>
                     </div>
                     <div>
-                        <Button style={{marginBottom:5}} disabled={disable3} variant="outline-info" onClick={Click3}>Зробити користувачем</Button>
+                        <Button style={{marginBottom:5}} disabled={disable3} variant="info" onClick={Click3}>Зробити користувачем</Button>
                     </div>
                     <div>
-                        <Button style={{marginBottom:5}} disabled={disable4} variant="outline-success" onClick={Click4}>Видати абонемент</Button>
+                        <Button style={{marginBottom:5}} disabled={disable4} variant="success" onClick={Click4}>Видати абонемент</Button>
                     </div>
                     <div>
-                        <Button style={{marginBottom:5}} disabled={disable5} variant="outline-danger" onClick={Click5}>Забрати абонемент</Button>
+                        <Button style={{marginBottom:5}} disabled={disable5} variant="danger" onClick={Click5}>Забрати абонемент</Button>
                     </div>
 
                 </div>

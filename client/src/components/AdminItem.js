@@ -12,9 +12,6 @@ const AdminItem = observer(({bookT}) => {
     const {basket}=useContext(Context)
     const [disable, setDisable] = useState(false);
 
-    useEffect(()=>{
-        console.log(bookT.subscription)
-    },[])
 
     const ClickFirst=()=>{
         postBookIdTrue(bookT.id).then(()=>{
@@ -35,7 +32,7 @@ const AdminItem = observer(({bookT}) => {
 
 
     return (
-        <Col md={6}>
+        <Col md={12}>
             <hr/>
             <div className="d-flex mb-2 mt-2" border={"light"} >
                 <div style={{minWidth:150}}>
@@ -48,11 +45,14 @@ const AdminItem = observer(({bookT}) => {
                     <div className="d-flex">
                         <div style={{marginRight:5}}>{bookT.updatedAt}</div>
                     </div>
-                    {(bookT.subscription=="undefined")
+                    {(bookT.subscription==undefined)
                         ?
                         <div/>
                         :
-                        <div style={{marginRight:5}}>{bookT.subscription}</div>
+                        <div>
+                            <hr style={{marginTop:2,marginBottom:2}}></hr>
+                            <div style={{marginRight:5}}>{(bookT.subscription)?"У користувача є абонемент":"У користувача немає абонемента"}</div>
+                        </div>
                     }
                 </div>
                 <div>

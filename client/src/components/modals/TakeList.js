@@ -23,7 +23,6 @@ const TakeList = ({show,onHide}) => {
 
     const Click=()=>{
         let c=[]
-        if(basket.ids) {
             giveUsersBookById(basket.ids).then(dataT => {
                 dataT.map(book => {
                     fetchOneBook(book.bookId).then(dataR => {
@@ -37,18 +36,6 @@ const TakeList = ({show,onHide}) => {
                     })
                 })
             })
-        }
-        else{
-            giveUsersBookById().then(dataT=> {
-                dataT.map(book => {
-                    fetchOneBook(book.bookId).then(dataR => {
-                        dataR.userId=book.userId
-                        c.push(dataR)
-                    })
-                })
-            })
-
-        }
         basket.setUserBooks(c)
     }
 

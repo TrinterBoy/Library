@@ -40,6 +40,7 @@ const TakeItem = observer(({bookT}) => {
                         <div style={{marginRight:5}}>{bookT.username}</div>
                         <div style={{marginRight:5}}>{bookT.surname}</div>
                         <div style={{marginRight:5}}>Номер: 0{bookT.phone}</div>
+                        <div style={{marginRight:5}}>Абонемент: {(bookT.subscription)?"у наявності":"немає"}</div>
                     </div>
                 </div>
                 <div>

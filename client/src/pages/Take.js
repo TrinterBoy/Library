@@ -16,11 +16,9 @@ const Take = observer(() => {
 
     return (
         <Container className="d-flex ">
-            <Row>
             {basket.userBooks.map(book=>
                 <TakeItem key={book.id} bookT={book}/>
             )}
-            </Row>
         </Container>
     );
 });

@@ -32,14 +32,16 @@ const GiveList = ({show,onHide}) => {
                     })
                 })
             })
-            navigate('/give')
         }
         else {
             getUnavailableBook().then(dataR => {
                 basket.setBooks(dataR.rows)
             })
-            navigate('/give')
         }
+    }
+
+    const Click2=()=>{
+        navigate('/give')
     }
 
     return (
@@ -64,7 +66,8 @@ const GiveList = ({show,onHide}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant={"outline-success"} onClick={Click}>Переглянути</Button>
+                <Button variant={"outline-success"} onClick={Click}>Підтвердити Id</Button>
+                <Button variant={"outline-success"} onClick={Click2}>Переглянути</Button>
                 <Button variant={"outline-danger"} onClick={onHide}>Сховати</Button>
             </Modal.Footer>
         </Modal>

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Col, Image} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
@@ -11,6 +11,9 @@ const TakeItem = observer(({bookT}) => {
     const navigate = useNavigate()
     const [disable, setDisable] = useState(false);
 
+    useEffect(()=>{
+        console.log(typeof(bookT.updatedAt))
+    })
 
     const Click=()=>{
         delUsersBook(bookT.userId,bookT.id).then(()=>{
@@ -33,7 +36,7 @@ const TakeItem = observer(({bookT}) => {
                         <div style={{marginRight:5}}>{bookT.author}</div>
                     </div>
                     <div className="d-flex">
-                        <div style={{marginRight:5}}>{bookT.updatedAt}</div>
+                        <div style={{marginRight:5}}>{bookT.updatedAt.substring(0, 10)}</div>
                     </div>
                     <div>
                         <h5>Інформація про читача:</h5>

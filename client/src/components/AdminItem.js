@@ -43,7 +43,7 @@ const AdminItem = observer(({bookT}) => {
                         <div style={{marginRight:5}}>{bookT.author}</div>
                     </div>
                     <div className="d-flex">
-                        <div style={{marginRight:5}}>{bookT.updatedAt}</div>
+                        <div style={{marginRight:5}}>{bookT.updatedAt.substring(0, 10)}</div>
                     </div>
                     {(bookT.subscription==undefined)
                         ?

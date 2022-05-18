@@ -68,7 +68,7 @@ const UserItem = observer(({user}) => {
                         <div>•Абонемент: {(user.subscription==true)?"Наявний":"Відсутній"}</div>
                     </div>
                     {(user.subscription==true)?
-                        <div>•Дата видачі абонементу:<br/> {user.updatedAt}</div>
+                        <div>•Дата видачі абонементу:<br/> {user.updatedAt.substring(0, 10)}</div>
                         :
                         <div/>
                     }

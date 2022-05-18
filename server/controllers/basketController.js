@@ -19,8 +19,13 @@ class BasketController {
         return res.json(basket)
     }
     async deleteOne(req,res){
+        let basket
         const {basketId,bookId} = req.body
-        const basket = await Basket_Book.destroy({where:{basketId,bookId}})
+        if(!basketId){
+            basket = await Basket_Book.destroy({where:{bookId}})
+        }else{
+         basket = await Basket_Book.destroy({where:{basketId,bookId}})
+        }
         return res.json(basket)
     }
 }

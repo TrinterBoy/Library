@@ -5,6 +5,7 @@ import {Context} from "../../index";
 import {useNavigate} from "react-router-dom";
 import {getBasket, getBasketId} from "../../http/basketAPI";
 import {fetchBook, fetchOneBook, getUnavailableBook} from "../../http/bookAPI";
+import {getOneUser} from "../../http/userAPI";
 
 const GiveList = ({show,onHide}) => {
     const navigate=useNavigate()
@@ -18,14 +19,17 @@ const GiveList = ({show,onHide}) => {
     const Click=()=>{
         if(basket.ids) {
             const c = []
-            getBasketId(basket.ids).then(data => {
-                getBasket(data.id).then(dataT => {
-                    dataT.map(book => {
-                        fetchOneBook(book.bookId).then(dataR => {
-                            c.push(dataR)
+            getOneUser(basket.ids).then(user=>{
+                getBasketId(basket.ids).then(data => {
+                    getBasket(data.id).then(dataT => {
+                        dataT.map(book => {
+                            fetchOneBook(book.bookId).then(dataR => {
+                                dataR.subscription = user.subscription
+                                c.push(dataR)
+                            })
                         })
+                        basket.setBooks(c)
                     })
-                    basket.setBooks(c)
                 })
             })
             navigate('/give')

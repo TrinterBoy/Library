@@ -5,7 +5,7 @@ const {User, Basket, Book} = require('../models/models')
 
 class UserController {
     async registration(req,res,next){
-        const {name,surname,email,password,phone,role} = req.body
+        const {name,surname,email,password,phone,subscription,role} = req.body
         if(name.match(/[^a-zа-яё]/i)) {
             return next(ApiError.badRequest("Некорктне ім'я"))
         }
@@ -35,9 +35,9 @@ class UserController {
             return next(ApiError.badRequest("Користувач з таким email уже існує"))
         }
         const hashedpassword = await bcrypt.hash(password, 5)
-        const user = await User.create({name,surname,email,password:hashedpassword,phone,role})
+        const user = await User.create({name,surname,email,password:hashedpassword,phone,subscription,role})
         await Basket.create({userId:user.id})
-        const token = jwt.sign({id:user.id,surname:user.surname, email: user.email,phone:user.phone, name: user.name,role:user.role}, process.env.SECRET_KEY,{expiresIn: '24h'})
+        const token = jwt.sign({id:user.id,surname:user.surname, email: user.email,phone:user.phone, name: user.name,subscription:user.subscription,role:user.role}, process.env.SECRET_KEY,{expiresIn: '24h'})
         return res.json({token})
     }
 
@@ -51,11 +51,11 @@ class UserController {
         if(!pass){
             return next(ApiError.internal("Невірний пароль"))
         }
-        const token = jwt.sign({id:user.id,surname:user.surname, email: user.email,phone:user.phone, name: user.name,role:user.role}, process.env.SECRET_KEY,{expiresIn: '24h'})
+        const token = jwt.sign({id:user.id,surname:user.surname, email: user.email,phone:user.phone, name: user.name,subscription:user.subscription,role:user.role}, process.env.SECRET_KEY,{expiresIn: '24h'})
         return res.json({token})
     }
     async check(req,res,next){
-        const token  = jwt.sign({id:req.user.id,surname:req.user.surname, email: req.user.email,phone:req.user.phone, name: req.user.name,role:req.user.role}, process.env.SECRET_KEY,{expiresIn: '24h'})
+        const token  = jwt.sign({id:req.user.id,surname:req.user.surname, email: req.user.email,phone:req.user.phone, name: req.user.name,subscription:req.user.subscription,role:req.user.role}, process.env.SECRET_KEY,{expiresIn: '24h'})
         return res.json({token})
     }
     async getOneMember(req,res){
@@ -80,6 +80,16 @@ class UserController {
     async updateUserToUSER(req,res){
         const {id} = req.body
         const user = await User.update({role:"USER"},{where:{id}})
+        return res.json(user)
+    }
+    async updateSubscriptionToTrue(req,res){
+        const {id} = req.body
+        const user = await User.update({subscription:true},{where:{id}})
+        return res.json(user)
+    }
+    async updateSubscriptionToFalse(req,res){
+        const {id} = req.body
+        const user = await User.update({subscription:false},{where:{id}})
         return res.json(user)
     }
 }

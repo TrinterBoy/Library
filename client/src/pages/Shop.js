@@ -10,6 +10,7 @@ import Pages from "../components/Pages";
 import {useNavigate} from "react-router-dom";
 import {getBasket, getBasketId} from "../http/basketAPI";
 import {giveUsersBookById} from "../http/usersBookAPI";
+import {getOneUser} from "../http/userAPI";
 
 const Shop = observer(() => {
     const navigate= useNavigate()
@@ -36,16 +37,16 @@ const Shop = observer(() => {
         if(user.isAuth){
             const c=[]
             const q=[]
-            getBasketId(user.user.id).then(data => {
-                getBasket(data.id).then(dataT=>{
-                    dataT.map(book=>{
-                        fetchOneBook(book.bookId).then(dataR=>{
-                            c.push(dataR)
+                getBasketId(user.user.id).then(data => {
+                    getBasket(data.id).then(dataT=>{
+                        dataT.map(book=>{
+                            fetchOneBook(book.bookId).then(dataR=>{
+                                c.push(dataR)
+                            })
                         })
+                        basket.setBooks(c)
                     })
-                    basket.setBooks(c)
                 })
-            })
             giveUsersBookById(user.user.id).then(data=>{
                 data.map(member=>{
                     fetchOneBook(member.bookId).then(dataQ=>{

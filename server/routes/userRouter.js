@@ -11,5 +11,7 @@ router.get('/one',userController.getOneMember)
 router.post('/del',userController.deleteUser)
 router.post('/toAdmin',userController.updateUsertoADMIN)
 router.post('/toUser',userController.updateUserToUSER)
+router.post('/toTrue',userController.updateSubscriptionToTrue)
+router.post('/toFalse',userController.updateSubscriptionToFalse)
 
 module.exports = router

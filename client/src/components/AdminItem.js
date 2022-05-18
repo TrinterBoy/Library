@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Col, Image} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
@@ -12,11 +12,13 @@ const AdminItem = observer(({bookT}) => {
     const {basket}=useContext(Context)
     const [disable, setDisable] = useState(false);
 
+    useEffect(()=>{
+        console.log(bookT.subscription)
+    },[])
+
     const ClickFirst=()=>{
         postBookIdTrue(bookT.id).then(()=>{
-            getBasketId(basket.ids).then(data => {
-                deleteBasket(data.id, bookT.id).then()
-            })
+                deleteBasket(undefined,bookT.id).then()
             alert("Книгу повернуто у базу")
             setDisable(true)
         })
@@ -33,7 +35,7 @@ const AdminItem = observer(({bookT}) => {
 
 
     return (
-        <Col md={4}>
+        <Col md={6}>
             <hr/>
             <div className="d-flex mb-2 mt-2" border={"light"} >
                 <div style={{minWidth:150}}>
@@ -46,6 +48,12 @@ const AdminItem = observer(({bookT}) => {
                     <div className="d-flex">
                         <div style={{marginRight:5}}>{bookT.updatedAt}</div>
                     </div>
+                    {(bookT.subscription=="undefined")
+                        ?
+                        <div/>
+                        :
+                        <div style={{marginRight:5}}>{bookT.subscription}</div>
+                    }
                 </div>
                 <div>
                 <Button disabled={disable} onClick={ClickFirst}>Зняти</Button>

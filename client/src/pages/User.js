@@ -15,9 +15,11 @@ const User = observer(() => {
 
     return (
         <Container className="d-flex">
+            <Row>
             {basket.users.map(user=>
                 <UserItem key={user.id} user={user}/>
             )}
+            </Row>
         </Container>
     );
 });

@@ -6,17 +6,19 @@ const {User, Basket, Book} = require('../models/models')
 class UserController {
     async registration(req,res,next){
         const {name,surname,email,password,phone,subscription,role} = req.body
-        if(name.match(/[^a-zа-яё]/i)) {
+        const regular = /[^a-zа-яёіїє'ґ]/i
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
+        if(name.match(regular)) {
             return next(ApiError.badRequest("Некорктне ім'я"))
         }
-        if(surname.match(/[^a-zа-яё]/i)) {
-            return next(ApiError.badRequest(`Некорктна фамілія ${q}`))
+        if(surname.match(regular)) {
+            return next(ApiError.badRequest(`Некорктна фамілія`))
+        }
+        if(!email.match(re)) {
+            return next(ApiError.badRequest("Некорктний email"))
         }
         if(!email || !password) {
-            if(email.match(/[^\d\sA-Z]/gi)){}
-            else {
-                return next(ApiError.badRequest("Некорктний email, чи пароль"))
-            }
+            return next(ApiError.badRequest("Відсутній email, чи пароль"))
         }
         const phone2 = await User.findOne({where:{phone}})
         if(phone2){

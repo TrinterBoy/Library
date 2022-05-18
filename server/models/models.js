@@ -8,6 +8,7 @@ const User = sequelize.define('user', {
     email:{type: DataTypes.STRING, unique: true},
     password:{type: DataTypes.STRING},
     phone:{type: DataTypes.INTEGER, unique: true},
+    subscription:{type: DataTypes.BOOLEAN, defaultValue: false},
     role: {type: DataTypes.STRING, defaultValue: "USER"},
 })
 

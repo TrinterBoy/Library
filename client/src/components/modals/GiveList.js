@@ -3,7 +3,7 @@ import {Button, Form, Modal} from "react-bootstrap";
 import basket from "../../pages/Basket";
 import {Context} from "../../index";
 import {useNavigate} from "react-router-dom";
-import {getBasket, getBasketId} from "../../http/basketAPI";
+import {getBasket, getBasketId, getUserFromBook} from "../../http/basketAPI";
 import {fetchBook, fetchOneBook, getUnavailableBook} from "../../http/bookAPI";
 import {getOneUser} from "../../http/userAPI";
 
@@ -36,7 +36,15 @@ const GiveList = ({show,onHide}) => {
             })
         }
         else {
+            const c = []
             getUnavailableBook().then(dataR => {
+                // console.log(dataR.rows)
+                dataR.rows.map(book=>{
+                    getUserFromBook(book.id).then(data=>{
+                        book.userId=data.basketId
+                        console.log(book)
+                    })
+                })
                 basket.setBooks(dataR.rows)
             })
         }

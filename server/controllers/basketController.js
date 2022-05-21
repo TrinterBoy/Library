@@ -33,7 +33,11 @@ class BasketController {
         const basket = await Basket.destroy({where:{userId}})
         return res.json(basket)
     }
-
+    async getOneUserByBook(req,res){
+        const {bookId} = req.query
+        const basket = await Basket_Book.findOne({where:{bookId}})
+        return res.json(basket)
+    }
 }
 
 module.exports = new BasketController()

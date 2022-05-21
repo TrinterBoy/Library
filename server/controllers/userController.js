@@ -14,6 +14,12 @@ class UserController {
         if(surname.match(regular)) {
             return next(ApiError.badRequest(`Некорктна фамілія`))
         }
+        if(!name|| name.length<2) {
+            return next(ApiError.badRequest("Некорктне ім'я"))
+        }
+        if(!surname|| surname.length<2) {
+            return next(ApiError.badRequest(`Некорктна фамілія`))
+        }
         if(!email.match(re)) {
             return next(ApiError.badRequest("Некорктний email"))
         }
@@ -25,7 +31,8 @@ class UserController {
             return next(ApiError.badRequest("Такий телефон вже зареєстрований"))
         }
         const candid = await User.findOne({where:{email}})
-        if (phone.length != 10 ){
+        console.log(phone)
+        if (phone.length != 9 ){
             try{
                 Number(phone)
             }catch (e){

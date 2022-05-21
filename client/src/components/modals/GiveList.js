@@ -25,10 +25,12 @@ const GiveList = ({show,onHide}) => {
                         dataT.map(book => {
                             fetchOneBook(book.bookId).then(dataR => {
                                 dataR.subscription = user.subscription
+                                dataR.userId=user.id
                                 c.push(dataR)
                             })
                         })
                         basket.setBooks(c)
+                        console.log(basket.books)
                     })
                 })
             })

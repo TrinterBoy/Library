@@ -45,6 +45,9 @@ const AdminItem = observer(({bookT}) => {
                     <div className="d-flex">
                         <div style={{marginRight:5}}>{bookT.updatedAt.substring(0, 10)}</div>
                     </div>
+                    <div className="d-flex">
+                        <div style={{marginRight:5}}>{bookT.userId}</div>
+                    </div>
                     {(bookT.subscription==undefined)
                         ?
                         <div/>

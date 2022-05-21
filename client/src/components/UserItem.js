@@ -10,6 +10,7 @@ import {
     updateToAdmin,
     updateToUser
 } from "../http/userAPI";
+import {deleteUserBasket} from "../http/basketAPI";
 
 
 const UserItem = observer(({user}) => {
@@ -21,6 +22,7 @@ const UserItem = observer(({user}) => {
 
 
     const Click=()=>{
+        deleteUserBasket(user.id).then()
         deleteUser(user.id).then(data=>{
             alert("Читача видалено")
             setDisable(true)

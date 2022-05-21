@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Card, Container, Form, InputGroup, Row} from "react-bootstrap";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {login, registration} from "../http/userAPI";
@@ -34,6 +34,12 @@ const Auth = observer(() => {
         }
     }
 
+    useEffect(()=>{
+        if(phone.length >9){
+            setPhone("")
+        }
+    },[phone.length])
+
 
     return (
         <Container className="d-flex justify-content-center align-items-center" style={{height: window.innerHeight - 54}}>
@@ -62,10 +68,10 @@ const Auth = observer(() => {
                 }
                 {!isLogin ?
                     <InputGroup>
-                        <InputGroup.Text className="mt-3">+38</InputGroup.Text>
+                        <InputGroup.Text className="mt-3">+380</InputGroup.Text>
                     <Form.Control
                         className="mt-3"
-                        placeholder="(XXX)-XXX-XX-XX"
+                        placeholder="(XX)-XXX-XX-XX"
                         value={phone}
                         onChange={e=>setPhone(e.target.value)}
                     />

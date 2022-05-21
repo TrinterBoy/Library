@@ -28,6 +28,12 @@ class BasketController {
         }
         return res.json(basket)
     }
+    async deleteOneByUser(req,res){
+        const {userId} = req.body
+        const basket = await Basket.destroy({where:{userId}})
+        return res.json(basket)
+    }
+
 }
 
 module.exports = new BasketController()

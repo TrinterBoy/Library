@@ -7,5 +7,6 @@ router.post('/',authMiddleware,basketController.create)
 router.get('/',authMiddleware,basketController.getAll)
 router.get('/one',authMiddleware,basketController.getOneId)
 router.post('/del',authMiddleware,basketController.deleteOne)
+router.post('/delUser',authMiddleware,basketController.deleteOneByUser)
 
 module.exports = router

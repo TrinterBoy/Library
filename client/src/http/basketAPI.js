@@ -18,3 +18,7 @@ export const deleteBasket = async (basketId,bookId) => {
     const {data} = await $authHost.post('api/basket/del', {basketId,bookId})
     return data
 }
+export const deleteUserBasket = async (userId) => {
+    const {data} = await $authHost.post('api/basket/delUser', {userId})
+    return data
+}

@@ -8,6 +8,11 @@ const GenreBar = observer(() => {
     const {book} =useContext(Context)
     return (
         <ListGroup>
+            <ListGroup.Item
+                active={book.selectedGenre.id === undefined}
+                onClick={() => book.setSelectedGenres("")}>
+                Без жанру
+            </ListGroup.Item>
             {book.genres.map(genre=>
                 <ListGroup.Item
                     style={{cursor:"pointer"}}

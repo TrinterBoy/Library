@@ -18,7 +18,7 @@ export const createBook = async (book) => {
     const {data} = await $authHost.post('api/book',book)
     return data
 }
-export const fetchBook =async (name,author,genreId, page, limit = 5) => {
+export const fetchBook =async (name,author,genreId, page, limit = 10) => {
     const {data} = await $host.get('api/book', {params:{
             name,author,genreId,page,limit
         }

@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/cd57f571-77cf-462a-96ed-ef3210e2ba06/microsoft.web/sites/subscriptions/cd57f571-77cf-462a-96ed-ef3210e2ba06/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/DiplomDudnykOleksandr",
+    "appService.deploySubpath": "."
+}

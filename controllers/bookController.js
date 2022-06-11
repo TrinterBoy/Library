@@ -26,23 +26,38 @@ class BookController {
     async getAll(req,res){
         let {name,genreId,year,author,limit,page} = req.query
         page = page || 1
-        limit = limit || 9
+        limit = limit || 6
         let offset = page * limit - limit
         let book ;
+        let bigName ;
+        let bigAuthor ;
+
+        try {
+            bigName = name.charAt(0).toUpperCase() + name.slice(1)
+            bigAuthor = author.charAt(0).toUpperCase() + author.slice(1)
+        }catch{
+            bigName = name
+            bigAuthor = author
+        }
+
+
+
         if(!genreId && !year && !author && !name){
             book = await Book.findAndCountAll({limit,offset})
         }
         if(!genreId && !author && name){
             book = await Book.findAndCountAll({where: {
             name:{
-            [Op.like] : `%${name}%`
+                [Op.like] : `%${name}%`,
+                [Op.like]: `%${bigName}%`
             }},limit,offset
             })
         }
         if(!genreId  && author && !name){
             book = await Book.findAndCountAll({where: {
                     author:{
-                        [Op.like] : `%${author}%`
+                        [Op.like] : `%${author}%`,
+                        [Op.like]: `%${bigAuthor}%`
                     }},limit,offset
             })
         }
@@ -52,45 +67,54 @@ class BookController {
         if(!genreId && author && name){
             book = await Book.findAndCountAll({where: {
                     author:{
-                        [Op.like] : `%${author}%`
+                        [Op.like] : `%${author}%`,
+                        [Op.like]: `%${bigAuthor}%`
                     },
                     name:{
-                        [Op.like] : `%${name}%`
+                        [Op.like] : `%${name}%`,
+                        [Op.like]: `%${bigName}%`
                     },limit,offset
             }})
         }
         if(genreId && !author && name){
             book = await Book.findAndCountAll({where: {genreId,
                     name:{
-                        [Op.like] : `%${name}%`
+                        [Op.like] : `%${name}%`,
+                        [Op.like]: `%${bigName}%`
                     }},limit,offset
             })
         }
         if(genreId && author && !name){
             book = await Book.findAndCountAll({where: {genreId,
                 author:{
-                    [Op.like] : `%${author}%`
+                    [Op.like] : `%${author}%`,
+                    [Op.like]: `%${bigAuthor}%`
                 }},limit,offset
             })
         }
         if(genreId  && author && name){
             book = await Book.findAndCountAll({where: {genreId,
                     author:{
-                        [Op.like] : `%${author}%`
+                        [Op.like] : `%${author}%`,
+                        [Op.like]: `%${bigAuthor}%`
                     },
                     name:{
-                        [Op.like] : `%${name}%`
+                        [Op.like] : `%${name}%`,
+                        [Op.like]: `%${bigName}%`
                     }},limit,offset
                 })
         }
-
         return res.json(book)
 
     }
-    async getOne(req,res){
-        const {id} = req.params
-        const book = await Book.findOne({where:{id}})
-        return res.json(book)
+    async getOne(req,res,next){
+        try {
+            const {id} = req.params
+            const book = await Book.findOne({where: {id}})
+            return res.json(book)
+        }catch (e){
+            next(ApiError.badRequest(e.message))
+        }
     }
     async getAllById(req,res){
         const {id} = req.query

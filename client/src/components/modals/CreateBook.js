@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Dropdown, Form, Modal} from "react-bootstrap";
 import {Context} from "../../index";
-import {createBook, fetchBook, fetchGenre} from "../../http/bookAPI";
+import {createBook, fetchGenre} from "../../http/bookAPI";
 import {observer} from "mobx-react-lite";
 
 const CreateBook = observer(({show,onHide}) => {
@@ -20,16 +20,27 @@ const CreateBook = observer(({show,onHide}) => {
         setFile(e.target.files[0])
     }
     const addBook = ()=>{
-        const formData = new FormData()
-        formData.append('name',name)
-        formData.append('author',author)
-        formData.append('year',`${year}`)
-        formData.append('genreId',book.selectedGenre.id)
-        formData.append('desc',desc)
-        formData.append('isA',`${true}`)
-        formData.append('img',file)
-        console.log(formData)
-        createBook(formData).then(data=>onHide())
+        if (book.selectedGenre.id == undefined) {
+            alert("Оберіть жанр")
+        }
+        else{
+            const formData = new FormData()
+            formData.append('name', name)
+            formData.append('author', author)
+            formData.append('year', `${year}`)
+            formData.append('genreId', book.selectedGenre.id)
+            formData.append('desc', desc)
+            formData.append('isA', `${true}`)
+            formData.append('img', file)
+            createBook(formData).then(() => {
+                alert("Книгу додано")
+            }).then(data => onHide()).then(()=>{
+                setName("")
+                setYear(0)
+                setAuthor("")
+                setDesc("")
+            })
+        }
     }
     return (
         <Modal

@@ -22,13 +22,13 @@ const Shop = observer(() => {
 
     useEffect(()=>{
         fetchGenre().then(data=>book.setGenres(data))
-        fetchBook(null,null,null,1,2).then(data=> {
+        fetchBook(null,null,null,1,6).then(data=> {
             book.setBooks(data.rows)
             book.setTotalCount(data.count)
         })
     },[])
     useEffect(()=>{
-        fetchBook(null,null,null,book.page,2).then(data=> {
+        fetchBook(null,null,null,book.page,6).then(data=> {
             book.setBooks(data.rows)
             book.setTotalCount(data.count)
         })
@@ -59,7 +59,7 @@ const Shop = observer(() => {
     },[])
 
     const Search = ()=>{
-            fetchBook(book.selectedName,book.selectedAuthor,book.selectedGenre.id,book.page,2).then(data=> {
+            fetchBook(book.selectedName,book.selectedAuthor,book.selectedGenre.id,book.page,6).then(data=> {
                 book.setBooks(data.rows)
                 book.setTotalCount(data.count)
             })

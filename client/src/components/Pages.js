@@ -15,7 +15,7 @@ const Pages = observer(() => {
     return (
         <Pagination className="mt-5">
             {pages.map(page=>
-            <Pagination.Item key={page} active={book.page ===page} onClick={()=>book.setPage(page)}>{page}</Pagination.Item>
+            <Pagination.Item key={page} active={book.page === page} onClick={()=>book.setPage(page)}>{page}</Pagination.Item>
             )}
             
         </Pagination>
